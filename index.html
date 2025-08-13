@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anesthesia Cash Amount</title>
+  <style>
+    :root { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
+    body { margin:0; padding:24px; background:#f7fafc; color:#0f172a; }
+    .card { max-width:680px; margin:0 auto; background:white; border-radius:16px; box-shadow:0 10px 25px rgba(0,0,0,.08); padding:24px; }
+    h1 { margin:0 0 6px; font-size:1.6rem; }
+    .muted { color:#475569; margin:0 0 14px; }
+    label { display:block; font-weight:700; margin:10px 0 6px; }
+    select { width:100%; padding:12px 14px; border:1px solid #cbd5e1; border-radius:10px; font-size:1.05rem; }
+    .result { margin-top:18px; background:#f1f5f9; border:1px dashed #94a3b8; border-radius:12px; padding:18px; }
+    .money { font-size:2.4rem; font-weight:800; letter-spacing:-0.01em; }
+    .fine { color:#64748b; font-size:.95rem; }
+    .big { font-size:1.1rem; font-weight:700; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Anesthesia Cash Amount</h1>
+    <p class="muted">Select your scheduled anesthesia time to see how much cash to bring.</p>
+
+    <label for="minutes">Scheduled anesthesia time</label>
+    <select id="minutes" aria-label="Scheduled anesthesia time (minutes)">
+      <option value="">— Select —</option>
+      <option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option>
+    </select>
+
+    <div class="result" id="result" style="display:none">
+      <div class="big">Amount to bring</div>
+      <div class="money" id="total">$0.00</div>
+      <div class="fine" id="rule">Billed with a 1-hour minimum. First hour $500; then $250/hr billed per 15 min ($62.50 each).</div>
+      <div class="fine" id="detail"></div>
+      <div class="fine">Final amount may vary slightly based on actual documented anesthesia time.</div>
+    </div>
+  </div>
+
+<script>
+const FIRST_HOUR = 500.0;
+const SUBSEQ_QTR = 62.5;
+
+function fmtUSD(v) {
+  return v.toLocaleString('en-US', { style:'currency', currency:'USD' });
+}
+
+function compute(minutes) {
+  if (!minutes) return null;
+  if (minutes <= 60) {
+    return { rounded: 60, total: FIRST_HOUR, first: FIRST_HOUR, subseq: 0 };
+  }
+  const quarters = Math.ceil(minutes / 15);
+  const subseqQtrs = Math.max(0, quarters - 4);
+  const total = FIRST_HOUR + subseqQtrs * SUBSEQ_QTR;
+  return { rounded: quarters*15, total, first: FIRST_HOUR, subseq: subseqQtrs * SUBSEQ_QTR };
+}
+
+const sel = document.getElementById('minutes');
+const result = document.getElementById('result');
+const totalEl = document.getElementById('total');
+const detail = document.getElementById('detail');
+
+sel.addEventListener('change', (e) => {
+  const m = parseInt(e.target.value, 10);
+  if (!m) { result.style.display = 'none'; return; }
+  const r = compute(m);
+  totalEl.textContent = fmtUSD(r.total);
+  detail.textContent = "You selected " + m + " minutes (billed/rounded: " + r.rounded + " min).";
+  result.style.display = 'block';
+});
+</script>
+</body>
+</html>
