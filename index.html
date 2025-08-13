@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Anesthesia Cash Amount</title>
+  <title>Anesthesia Services - Rainier Surgery Center</title>
   <style>
     :root { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
     body { margin:0; padding:24px; background:#f7fafc; color:#0f172a; }
@@ -20,8 +20,8 @@
 </head>
 <body>
   <div class="card">
-    <h1>Anesthesia Cash Amount</h1>
-    <p class="muted">Select your scheduled anesthesia time to see how much cash to bring.</p>
+    <h1>Anesthesia Services - Rainier Surgery Center</h1>
+    <p class="muted">Select your scheduled anesthesia time to see how much cash to bring for your procedure.</p>
 
     <label for="minutes">Scheduled anesthesia time</label>
     <select id="minutes" aria-label="Scheduled anesthesia time (minutes)">
@@ -32,9 +32,8 @@
     <div class="result" id="result" style="display:none">
       <div class="big">Amount to bring</div>
       <div class="money" id="total">$0.00</div>
-      <div class="fine" id="rule">Billed with a 1-hour minimum. First hour $500; then $250/hr billed per 15 min ($62.50 each). Rounds up to next 15 min.</div>
       <div class="fine" id="detail"></div>
-      <div class="fine">Final amount may vary based on actual documented anesthesia time.</div>
+      <div class="fine"><em>Additional time beyond the scheduled amount may be billed after your surgery.</em></div>
     </div>
   </div>
 
