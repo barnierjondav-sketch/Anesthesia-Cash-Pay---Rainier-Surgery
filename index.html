@@ -26,15 +26,15 @@
     <label for="minutes">Scheduled anesthesia time</label>
     <select id="minutes" aria-label="Scheduled anesthesia time (minutes)">
       <option value="">— Select —</option>
-      <option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option><option value="{m}">{m} minutes</option>
+      <option value="45">45 minutes</option><option value="60">60 minutes</option><option value="75">75 minutes</option><option value="90">90 minutes</option><option value="105">105 minutes</option><option value="120">120 minutes</option><option value="135">135 minutes</option><option value="150">150 minutes</option><option value="165">165 minutes</option><option value="180">180 minutes</option><option value="195">195 minutes</option><option value="210">210 minutes</option>
     </select>
 
     <div class="result" id="result" style="display:none">
       <div class="big">Amount to bring</div>
       <div class="money" id="total">$0.00</div>
-      <div class="fine" id="rule">Billed with a 1-hour minimum. First hour $500; then $250/hr billed per 15 min ($62.50 each).</div>
+      <div class="fine" id="rule">Billed with a 1-hour minimum. First hour $500; then $250/hr billed per 15 min ($62.50 each). Rounds up to next 15 min.</div>
       <div class="fine" id="detail"></div>
-      <div class="fine">Final amount may vary slightly based on actual documented anesthesia time.</div>
+      <div class="fine">Final amount may vary based on actual documented anesthesia time.</div>
     </div>
   </div>
 
