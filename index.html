@@ -26,7 +26,7 @@
     <label for="minutes">Scheduled anesthesia time</label>
     <select id="minutes" aria-label="Scheduled anesthesia time (minutes)">
       <option value="">— Select —</option>
-      <option value="45">45 minutes</option><option value="60">60 minutes</option><option value="75">75 minutes</option><option value="90">90 minutes</option><option value="105">105 minutes</option><option value="120">120 minutes</option><option value="135">135 minutes</option><option value="150">150 minutes</option><option value="165">165 minutes</option><option value="180">180 minutes</option><option value="195">195 minutes</option><option value="210">210 minutes</option>
+      <option value="30">30 minutes</option><option value="45">45 minutes</option><option value="60">60 minutes</option><option value="75">75 minutes</option><option value="90">90 minutes</option><option value="105">105 minutes</option><option value="120">120 minutes</option><option value="135">135 minutes</option><option value="150">150 minutes</option><option value="165">165 minutes</option><option value="180">180 minutes</option><option value="195">195 minutes</option><option value="210">210 minutes</option>
     </select>
 
     <div class="result" id="result" style="display:none">
@@ -38,6 +38,7 @@
   </div>
 
 <script>
+const FIRST_QTR = 125.0;
 const FIRST_HOUR = 500.0;
 const SUBSEQ_QTR = 62.5;
 
@@ -47,13 +48,15 @@ function fmtUSD(v) {
 
 function compute(minutes) {
   if (!minutes) return null;
-  if (minutes <= 60) {
-    return { rounded: 60, total: FIRST_HOUR, first: FIRST_HOUR, subseq: 0 };
-  }
   const quarters = Math.ceil(minutes / 15);
-  const subseqQtrs = Math.max(0, quarters - 4);
-  const total = FIRST_HOUR + subseqQtrs * SUBSEQ_QTR;
-  return { rounded: quarters*15, total, first: FIRST_HOUR, subseq: subseqQtrs * SUBSEQ_QTR };
+  if (quarters <= 4) {
+    const total = quarters * FIRST_QTR;
+    return { rounded: quarters*15, total };
+  } else {
+    const subseqQtrs = quarters - 4;
+    const total = FIRST_HOUR + subseqQtrs * SUBSEQ_QTR;
+    return { rounded: quarters*15, total };
+  }
 }
 
 const sel = document.getElementById('minutes');
